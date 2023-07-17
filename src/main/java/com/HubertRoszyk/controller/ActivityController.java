@@ -1,6 +1,5 @@
 package com.HubertRoszyk.controller;
 
-import com.HubertRoszyk.enumTypes.ActivityType;
 import com.HubertRoszyk.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,10 +17,5 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
-    @CrossOrigin(origins = "*")
-    @GetMapping("/activityType")
-    public List<Enum> getAllActivitiesType(){
-        List<Enum> activitiesTypesEnumValues = new ArrayList<>(EnumSet.allOf(ActivityType.class));
-        return activitiesTypesEnumValues;
-    }
+
 }

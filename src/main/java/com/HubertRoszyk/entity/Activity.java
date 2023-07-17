@@ -1,14 +1,11 @@
 package com.HubertRoszyk.entity;
 
-import com.HubertRoszyk.enumTypes.ActivityType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -23,7 +20,7 @@ public class Activity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Enumerated
+    @ManyToOne
     private ActivityType activityType;
 
     @Temporal(TemporalType.TIMESTAMP)

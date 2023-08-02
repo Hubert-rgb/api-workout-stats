@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class ActivityTypeController {
     public ActivityType createActivityType(@RequestBody JSONObject jsonInput){
         String name = (String) jsonInput.get("name");
         List<String> requiredData = (List<String>) jsonInput.get("requiredData");
-        List<String> possibleData = (List<String>) jsonInput.get("possibleData");
+        HashMap<String, String> possibleData = (HashMap<String, String>) jsonInput.get("possibleData");
 
         ActivityType activityType = new ActivityType(name, requiredData, possibleData);
 

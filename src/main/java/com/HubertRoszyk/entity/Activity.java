@@ -1,5 +1,6 @@
 package com.HubertRoszyk.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,10 +24,13 @@ public class Activity {
     @ManyToOne
     private ActivityType activityType;
 
+    @JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     private Date duration;
+    @JsonIgnore
     @Temporal(TemporalType.DATE)
     private Date date;
+    @JsonIgnore
     @Temporal(TemporalType.TIME)
     private Date time;
 

@@ -19,4 +19,8 @@ public class ActivityService {
     public List<Activity> getActivitiesByDate(Date date){
         return repository.findAllByDate(date);
     }
+
+    public List<Activity> getAllActivities(){
+        return repository.findAll();
+    }
 }

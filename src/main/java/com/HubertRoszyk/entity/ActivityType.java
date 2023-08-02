@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table
@@ -28,12 +30,13 @@ public class ActivityType {
     @JsonProperty
     private List<String> requiredData;
     @JsonProperty
-    private List<String> possibleData;
+    @ElementCollection
+    private Map<String, String> possibleData = new HashMap<>();
 
     @OneToMany(mappedBy = "activityType")
     private List<Activity> activities;
 
-    public ActivityType(String name, List<String> requiredData, List<String> possibleData){
+    public ActivityType(String name, List<String> requiredData, HashMap<String, String> possibleData){
         this.name = name;
         this.requiredData = requiredData;
         this.possibleData = possibleData;

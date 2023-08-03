@@ -1,7 +1,9 @@
 package com.HubertRoszyk.controller;
 
 import com.HubertRoszyk.entity.Activity;
+import com.HubertRoszyk.entity.ActivityType;
 import com.HubertRoszyk.service.ActivityService;
+import com.HubertRoszyk.service.ActivityTypeService;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
@@ -26,6 +28,9 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
+    @Autowired
+    ActivityTypeService activityTypeService;
+
     @PostMapping
     @CrossOrigin(origins = "*")
     public String createActivity(@RequestBody JSONObject jsonObject){
@@ -34,9 +39,15 @@ public class ActivityController {
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         try {
+            Long dateMs = (Long) jsonObject.get("date");
+            Long activityTypeId = Long.valueOf((Integer) jsonObject.get("activityTypeId"));
+            ActivityType activityType = activityTypeService.getActivityTypeById(activityTypeId);
 
+            Date date = new Date(dateMs);
             Activity activity = objectMapper.readValue(jsonObject.toJSONString(), Activity.class);
-            activity.setDate(getDateFromJSON(jsonObject));
+
+            activity.setDate(date);
+            activity.setActivityType(activityType);
             activityService.saveActivity(activity);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -52,27 +63,7 @@ public class ActivityController {
 
     @GetMapping
     @CrossOrigin(origins = "*")
-    public List<Activity> getAllActivity(){
-        List<Activity> activities = activityService.getAllActivities();
-        System.out.println(activities.get(0).getDate());
+    public List<Activity> getAllActivity() {
         return activityService.getAllActivities();
-    }
-    private LocalDateTime getDateFromJSON(JSONObject jsonObject){
-        LocalDateTime date = null;
-        try{
-            Long dateMs = (Long) jsonObject.get("date");
-            String time = (String) jsonObject.get("time");
-            List<String> timeArr = List.of(time.split(":"));
-            int timeHour = Integer.parseInt(timeArr.get(0));
-            int timeMinutes = Integer.parseInt(timeArr.get(1));
-
-            date = Instant.ofEpochMilli(dateMs).atZone(ZoneId.systemDefault()).toLocalDateTime();
-            date = date.withHour(timeHour);
-            date = date.withMinute(timeMinutes);
-            return date;
-        } catch (NullPointerException exception) {
-            System.out.println(exception);
-            return date;
-        }
     }
 }

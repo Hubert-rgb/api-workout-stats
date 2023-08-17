@@ -1,5 +1,6 @@
 package com.HubertRoszyk.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,6 +33,7 @@ public class ActivityType {
     private Map<String, String> possibleData = new HashMap<>();
 
     @OneToMany(mappedBy = "activityType")
+    @JsonBackReference
     private List<Activity> activities;
 
     public ActivityType(String name, List<String> requiredData, HashMap<String, String> possibleData){

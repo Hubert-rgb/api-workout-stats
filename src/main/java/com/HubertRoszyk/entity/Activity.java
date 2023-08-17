@@ -1,7 +1,6 @@
 package com.HubertRoszyk.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +17,9 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +29,9 @@ public class Activity {
     //TODO solve get method with this relation
     @ManyToOne
     @JoinColumn(name = "activity-type-id")
-    @JsonIgnore
-    //@JsonProperty(access =  JsonProperty.Access.READ_ONLY)
+    @JsonManagedReference
+    //@JsonIgnore
+    @JsonProperty(access =  JsonProperty.Access.READ_ONLY)
     private ActivityType activityType;
 
     private String duration;

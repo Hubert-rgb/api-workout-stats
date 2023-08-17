@@ -55,10 +55,9 @@ public class ActivityController {
 
         return "activity-added";
     }
-    @GetMapping("date")
+    @GetMapping("/date/")
     @CrossOrigin(origins = "*")
-    public List<Activity> getAllActivityByDate(@RequestBody JSONObject jsonObject){
-        Long dateMs = (Long) jsonObject.get("date");
+    public List<Activity> getAllActivityByDate(@RequestParam Long dateMs){
         Date date = new Date(dateMs);
         return activityService.getActivitiesByDate(date);
     }

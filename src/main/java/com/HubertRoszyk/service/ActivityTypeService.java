@@ -23,4 +23,8 @@ public class ActivityTypeService {
     public ActivityType getActivityTypeById(Long id){
         return repository.findById(id).orElse(null);
     }
+
+    public void deleteActivityTypeById(Long id) {
+        repository.deleteById(id);
+    }
 }

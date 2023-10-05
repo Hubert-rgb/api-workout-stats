@@ -39,4 +39,10 @@ public class ActivityTypeController {
         activityTypeService.saveActivityType(activityType);
         return activityType;
     }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/{activityTypeId}")
+    public void deleteActivityType(@PathVariable Long activityTypeId){
+        activityTypeService.deleteActivityTypeById(activityTypeId);
+    }
 }

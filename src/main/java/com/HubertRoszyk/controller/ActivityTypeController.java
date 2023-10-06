@@ -45,4 +45,20 @@ public class ActivityTypeController {
     public void deleteActivityType(@PathVariable Long activityTypeId){
         activityTypeService.deleteActivityTypeById(activityTypeId);
     }
+
+    @CrossOrigin(origins = "*")
+    @PutMapping("/{activityTypeId}")
+    public ActivityType updateActivityType(@PathVariable Long activityTypeId, @RequestBody JSONObject jsonInput){
+        String name = (String) jsonInput.get("name");
+        List<String> requiredData = (List<String>) jsonInput.get("requiredData");
+        HashMap<String, String> possibleData = (HashMap<String, String>) jsonInput.get("possibleData");
+
+        ActivityType activityType = activityTypeService.getActivityTypeById(activityTypeId);
+        activityType.setName(name);
+        activityType.setRequiredData(requiredData);
+        activityType.setPossibleData(possibleData);
+
+        activityTypeService.saveActivityType(activityType);
+        return activityType;
+    }
 }

@@ -30,7 +30,7 @@ public class ActivityType {
     private List<String> requiredData;
     @JsonProperty
     @ElementCollection
-    private Map<String, String> possibleData = new HashMap<>();
+    private Map<String, String> possibleData;
 
     @OneToMany(mappedBy = "activityType")
     @JsonBackReference

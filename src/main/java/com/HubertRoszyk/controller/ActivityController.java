@@ -67,4 +67,18 @@ public class ActivityController {
     public List<Activity> getAllActivity() {
         return activityService.getAllActivities();
     }
+
+    @DeleteMapping("/{activityId}")
+    @CrossOrigin(origins = "*")
+    public void deleteActivity(@PathVariable Long activityId){
+        activityService.deleteActivityById(activityId);
+    }
+
+    @PutMapping("/{activityId}")
+    @CrossOrigin("*")
+    public Activity updateActivity(@PathVariable Long activityId, @RequestBody JSONObject jsonInput){
+        Activity activity = activityService.getActivityById(activityId);
+        //TODO updating activity data, I'll try to do it by jackson
+        return activityService.saveActivity(activity);
+    }
 }

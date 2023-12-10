@@ -23,4 +23,12 @@ public class ActivityService {
     public List<Activity> getAllActivities(){
         return repository.findAll();
     }
+
+    public Activity getActivityById(Long id){
+        return repository.findById(id).orElse(null);
+    }
+
+    public void deleteActivityById(Long id){
+        repository.deleteById(id);
+    }
 }
